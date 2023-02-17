@@ -15,8 +15,9 @@
 
     <LinearLayout
         android:id="@+id/menuButtons"
-        android:layout_width="300dp"
-        android:layout_height="500dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="15dp"
         android:background="#ffd740"
         android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
