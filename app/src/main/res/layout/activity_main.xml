@@ -10,15 +10,15 @@
         android:id="@+id/menuTop"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:background="#0ff"
+        android:background="@color/menuTop"
         app:layout_constraintTop_toTopOf="parent"></FrameLayout>
 
     <LinearLayout
         android:id="@+id/menuButtons"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_margin="15dp"
-        android:background="#ffd740"
+        android:layout_margin="@dimen/menu_buttons_margin"
+        android:background="@color/menuButtons"
         android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -29,6 +29,6 @@
         android:id="@+id/menuBottom"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:background="#0f0"
+        android:background="@color/menuBottom"
         app:layout_constraintBottom_toBottomOf="parent"></FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
