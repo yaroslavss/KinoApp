@@ -87,34 +87,44 @@
         app:layout_constraintBottom_toTopOf="@+id/menuBottom">
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/button_menu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Button" />
+            android:textColor="@android:color/white"
+            android:background="?selectableItemBackgroundBorderless"
+            android:text="@string/btn_menu" />
 
         <Button
-            android:id="@+id/button1"
+            android:id="@+id/button_fav"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Button" />
+            android:textColor="@android:color/white"
+            android:background="?selectableItemBackgroundBorderless"
+            android:text="@string/btn_fav" />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/button_watch_later"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Button" />
+            android:textColor="@android:color/white"
+            android:background="?selectableItemBackgroundBorderless"
+            android:text="@string/btn_watch_later" />
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/button_selections"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Button" />
+            android:textColor="@android:color/white"
+            android:background="?selectableItemBackgroundBorderless"
+            android:text="@string/btn_selections" />
 
         <Button
-            android:id="@+id/button4"
+            android:id="@+id/button_settings"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Button" />
+            android:textColor="@android:color/white"
+            android:background="?selectableItemBackgroundBorderless"
+            android:text="@string/btn_settings" />
     </LinearLayout>
 
     <FrameLayout
