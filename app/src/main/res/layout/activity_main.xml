@@ -4,7 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/corner_background"
     tools:context=".MainActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/topAppBar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:title="@string/page_title"
+            app:navigationIcon="@drawable/ic_round_menu"
+            app:menu="@menu/toolbar_menu"
+            style="@style/Widget.MaterialComponents.Toolbar.Primary" />
+
+    </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/menuTop"
@@ -13,7 +31,7 @@
         android:layout_margin="@dimen/menu_top_margin"
         android:elevation="5dp"
         app:cardCornerRadius="15dp"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/app_bar_layout">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -74,63 +92,6 @@
         app:layout_constraintTop_toBottomOf="@id/menuTop"
         tools:ignore="TouchTargetSizeCheck" />
 
-    <LinearLayout
-        android:id="@+id/menuButtons"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/menu_buttons_margin"
-        android:background="@drawable/corner_background"
-        android:orientation="vertical"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/menuTop"
-        app:layout_constraintBottom_toTopOf="@+id/menuBottom">
 
-        <Button
-            android:id="@+id/button_menu"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@android:color/white"
-            android:background="?selectableItemBackgroundBorderless"
-            android:text="@string/btn_menu" />
 
-        <Button
-            android:id="@+id/button_fav"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@android:color/white"
-            android:background="?selectableItemBackgroundBorderless"
-            android:text="@string/btn_fav" />
-
-        <Button
-            android:id="@+id/button_watch_later"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@android:color/white"
-            android:background="?selectableItemBackgroundBorderless"
-            android:text="@string/btn_watch_later" />
-
-        <Button
-            android:id="@+id/button_selections"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@android:color/white"
-            android:background="?selectableItemBackgroundBorderless"
-            android:text="@string/btn_selections" />
-
-        <Button
-            android:id="@+id/button_settings"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@android:color/white"
-            android:background="?selectableItemBackgroundBorderless"
-            android:text="@string/btn_settings" />
-    </LinearLayout>
-
-    <FrameLayout
-        android:id="@+id/menuBottom"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:background="@color/menuBottom"
-        app:layout_constraintBottom_toBottomOf="parent"></FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
