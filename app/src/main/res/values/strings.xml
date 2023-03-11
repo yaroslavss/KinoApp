@@ -1,6 +1,11 @@
 <resources>
     <string name="app_name">KinoApp</string>
+    <string name="page_title">Search it!</string>
     <string name="disclaimer">Постеры предоставлены https://www.movieposters.com/</string>
+    <string name="menu_settings_title">Настройки</string>
+    <string name="menu_favorites_title">Избранное</string>
+    <string name="menu_watch_later_title">Смотреть позже</string>
+    <string name="menu_selections_title">Коллекция</string>
     <string name="btn_menu">Меню</string>
     <string name="btn_fav">Избранное</string>
     <string name="btn_watch_later">Посмотреть позже</string>
