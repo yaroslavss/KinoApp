@@ -109,52 +109,64 @@
             android:id="@+id/poster_1"
             android:layout_width="@dimen/big_poster_width"
             android:layout_height="@dimen/big_poster_height"
-            app:cardCornerRadius="15dp">
+            android:clickable="true"
+            android:stateListAnimator="@animator/press_button_animation"
+            app:cardCornerRadius="15dp"
+            tools:ignore="SpeakableTextPresentCheck">
 
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/poster_1_big"
-                android:scaleType="centerCrop"/>
+                android:scaleType="centerCrop"
+                android:src="@drawable/poster_1_big" />
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
             android:id="@+id/poster_2"
             android:layout_width="@dimen/big_poster_width"
             android:layout_height="@dimen/big_poster_height"
-            app:cardCornerRadius="15dp">
+            android:clickable="true"
+            android:stateListAnimator="@animator/press_button_animation"
+            app:cardCornerRadius="15dp"
+            tools:ignore="SpeakableTextPresentCheck">
 
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/poster_1_big"
-                android:scaleType="centerCrop"/>
+                android:scaleType="centerCrop"
+                android:src="@drawable/poster_1_big" />
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
             android:id="@+id/poster_3"
             android:layout_width="@dimen/big_poster_width"
             android:layout_height="@dimen/big_poster_height"
-            app:cardCornerRadius="15dp">
+            android:clickable="true"
+            android:stateListAnimator="@animator/press_button_animation"
+            app:cardCornerRadius="15dp"
+            tools:ignore="SpeakableTextPresentCheck">
 
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/poster_1_big"
-                android:scaleType="centerCrop"/>
+                android:scaleType="centerCrop"
+                android:src="@drawable/poster_1_big" />
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
             android:id="@+id/poster_4"
             android:layout_width="@dimen/big_poster_width"
             android:layout_height="@dimen/big_poster_height"
-            app:cardCornerRadius="15dp">
+            android:clickable="true"
+            android:stateListAnimator="@animator/press_button_animation"
+            app:cardCornerRadius="15dp"
+            tools:ignore="SpeakableTextPresentCheck">
 
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/poster_1_big"
-                android:scaleType="centerCrop"/>
+                android:scaleType="centerCrop"
+                android:src="@drawable/poster_1_big" />
         </androidx.cardview.widget.CardView>
     </GridLayout>
 
