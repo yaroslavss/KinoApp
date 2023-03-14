@@ -4,4 +4,6 @@
     <dimen name="menu_top_margin">10dp</dimen>
     <dimen name="disclaimer_block_margin">16dp</dimen>
     <dimen name="menu_buttons_margin">16dp</dimen>
+    <dimen name="big_poster_width">150dp</dimen>
+    <dimen name="big_poster_height">200dp</dimen>
 </resources>
