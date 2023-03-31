@@ -1,5 +1,6 @@
 package com.yara.kinoapp
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -59,7 +60,12 @@ class MainActivity : AppCompatActivity() {
         // get RV
         binding.mainRecycler.apply {
             filmsAdapter = FilmListRecyclerAdapter(object : FilmListRecyclerAdapter.OnItemClickListener{
-                override fun click(film: Film) {}
+                override fun click(film: Film) {
+                    val bundle = Bundle()
+                    bundle.putParcelable("film", film)
+                    val intent = Intent(this@MainActivity, DetailsActivity::class.java)
+                    intent.putExtras(bundle)
+                    startActivity(intent)                }
             })
 
             adapter = filmsAdapter
