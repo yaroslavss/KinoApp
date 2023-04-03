@@ -3,7 +3,6 @@ package com.yara.kinoapp
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.yara.kinoapp.databinding.ActivityDetailsBinding
-import com.yara.kinoapp.databinding.ActivityMainBinding
 
 class DetailsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailsBinding

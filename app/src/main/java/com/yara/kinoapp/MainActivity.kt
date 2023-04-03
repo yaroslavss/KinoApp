@@ -5,12 +5,11 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.appbar.MaterialToolbar
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.yara.kinoapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var filmsAdapter: FilmListRecyclerAdapter
+    private lateinit var binding: ActivityMainBinding
 
     val filmsDataBase = listOf(
         Film(
@@ -52,7 +51,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         initNavigation()
@@ -78,8 +77,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initNavigation() {
-        val topAppBar = findViewById<MaterialToolbar>(R.id.topAppBar)
-        topAppBar.setOnMenuItemClickListener {
+        binding.topAppBar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.settings -> {
                     Toast.makeText(this, it.title, Toast.LENGTH_SHORT).show()
@@ -89,8 +87,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
-        bottomNav.setOnItemSelectedListener {
+        binding.bottomNavigation.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.favorites -> {
                     Toast.makeText(this, it.title, Toast.LENGTH_SHORT).show()
