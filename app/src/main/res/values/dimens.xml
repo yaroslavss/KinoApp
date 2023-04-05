@@ -2,8 +2,21 @@
 <resources>
     <dimen name="menu_top_height">100dp</dimen>
     <dimen name="menu_top_margin">10dp</dimen>
+    <dimen name="menu_top_card_elev">5dp</dimen>
+    <dimen name="menu_top_card_radius">15dp</dimen>
     <dimen name="disclaimer_block_margin">16dp</dimen>
     <dimen name="menu_buttons_margin">16dp</dimen>
     <dimen name="big_poster_width">150dp</dimen>
     <dimen name="big_poster_height">200dp</dimen>
+    <dimen name="recycler_view_padding">8dp</dimen>
+    <dimen name="app_bar_height">200dp</dimen>
+    <dimen name="collapsing_toolbar_min_height">60dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="details_description_margin">16dp</dimen>
+    <dimen name="film_item_card_height">150dp</dimen>
+    <dimen name="film_item_card_elev">1dp</dimen>
+    <dimen name="film_item_card_radius">10dp</dimen>
+    <dimen name="film_item_image_width">150dp</dimen>
+    <dimen name="film_item_title_padding">8dp</dimen>
+    <dimen name="film_item_desc_padding">8dp</dimen>
 </resources>
