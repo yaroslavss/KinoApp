@@ -7,6 +7,7 @@ import com.yara.kinoapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    private var backPressed = 0L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,6 +22,20 @@ class MainActivity : AppCompatActivity() {
             .add(R.id.fragment_placeholder, HomeFragment())
             .addToBackStack(null)
             .commit()
+    }
+
+    override fun onBackPressed() {
+        if (supportFragmentManager.backStackEntryCount == 1) {
+            if (backPressed + TIME_INTERVAL > System.currentTimeMillis()) {
+                super.onBackPressed()
+                finish()
+            } else {
+                Toast.makeText(this, "Double tap to exit", Toast.LENGTH_SHORT).show()
+            }
+
+            backPressed = System.currentTimeMillis()
+        } else
+            super.onBackPressed()
     }
 
     fun launchDetailsFragment(film: Film) {
@@ -65,5 +80,9 @@ class MainActivity : AppCompatActivity() {
                 else -> false
             }
         }
+    }
+
+    companion object {
+        const val TIME_INTERVAL = 2000
     }
 }
