@@ -1,53 +1,13 @@
 package com.yara.kinoapp
 
-import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.yara.kinoapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var filmsAdapter: FilmListRecyclerAdapter
     private lateinit var binding: ActivityMainBinding
-
-    val filmsDataBase = listOf(
-        Film(
-            "Title 1",
-            R.drawable.p1,
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nisl felis, maximus vel tincidunt id, iaculis in massa. Pellentesque habitant."
-        ),
-        Film(
-            "Title 2",
-            R.drawable.p2,
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nisl felis, maximus vel tincidunt id, iaculis in massa. Pellentesque habitant."
-        ),
-        Film(
-            "Title 3",
-            R.drawable.p3,
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nisl felis, maximus vel tincidunt id, iaculis in massa. Pellentesque habitant."
-        ),
-        Film(
-            "Title 4",
-            R.drawable.p4,
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nisl felis, maximus vel tincidunt id, iaculis in massa. Pellentesque habitant."
-        ),
-        Film(
-            "Title 5",
-            R.drawable.p5,
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nisl felis, maximus vel tincidunt id, iaculis in massa. Pellentesque habitant."
-        ),
-        Film(
-            "Title 6",
-            R.drawable.p6,
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nisl felis, maximus vel tincidunt id, iaculis in massa. Pellentesque habitant."
-        ),
-        Film(
-            "Title 7",
-            R.drawable.p7,
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nisl felis, maximus vel tincidunt id, iaculis in massa. Pellentesque habitant."
-        )
-    )
+    private var backPressed = 0L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,24 +16,40 @@ class MainActivity : AppCompatActivity() {
 
         initNavigation()
 
-        // get RV
-        binding.mainRecycler.apply {
-            filmsAdapter = FilmListRecyclerAdapter(object : FilmListRecyclerAdapter.OnItemClickListener{
-                override fun click(film: Film) {
-                    val bundle = Bundle()
-                    bundle.putParcelable("film", film)
-                    val intent = Intent(this@MainActivity, DetailsActivity::class.java)
-                    intent.putExtras(bundle)
-                    startActivity(intent)                }
-            })
+        // run fragment
+        supportFragmentManager
+            .beginTransaction()
+            .add(R.id.fragment_placeholder, HomeFragment())
+            .addToBackStack(null)
+            .commit()
+    }
 
-            adapter = filmsAdapter
-            layoutManager = LinearLayoutManager(this@MainActivity)
-            val decorator = TopSpacingItemDecoration(8)
-            addItemDecoration(decorator)
-        }
+    override fun onBackPressed() {
+        if (supportFragmentManager.backStackEntryCount == 1) {
+            if (backPressed + TIME_INTERVAL > System.currentTimeMillis()) {
+                super.onBackPressed()
+                finish()
+            } else {
+                Toast.makeText(this, "Double tap to exit", Toast.LENGTH_SHORT).show()
+            }
 
-        filmsAdapter.addItems(filmsDataBase)
+            backPressed = System.currentTimeMillis()
+        } else
+            super.onBackPressed()
+    }
+
+    fun launchDetailsFragment(film: Film) {
+        val bundle = Bundle()
+        bundle.putParcelable("film", film)
+        val fragment = DetailsFragment()
+        fragment.arguments = bundle
+
+        // run fragment
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.fragment_placeholder, fragment)
+            .addToBackStack(null)
+            .commit()
     }
 
     private fun initNavigation() {
@@ -104,5 +80,9 @@ class MainActivity : AppCompatActivity() {
                 else -> false
             }
         }
+    }
+
+    companion object {
+        const val TIME_INTERVAL = 2000
     }
 }
