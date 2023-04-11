@@ -26,10 +26,12 @@ class DetailsFragment : Fragment() {
 
     private fun setFilmsDetails() {
         // get film from Bundle
-        val film = arguments?.get("film") as Film
+        val film: Film? = arguments?.get("film") as? Film
 
-        binding.detailsToolbar.title = film.title
-        binding.detailsPoster.setImageResource(film.poster)
-        binding.detailsDescription.text = film.description
+        film?.let {
+            binding.detailsToolbar.title = film.title
+            binding.detailsPoster.setImageResource(film.poster)
+            binding.detailsDescription.text = film.description
+        }
     }
 }
