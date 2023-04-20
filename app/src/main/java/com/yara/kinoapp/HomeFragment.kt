@@ -87,6 +87,7 @@ class HomeFragment : Fragment() {
         })
 
         initRecycler()
+        filmsAdapter.addItems(filmsDataBase)
     }
 
     private fun initRecycler() {
@@ -103,7 +104,5 @@ class HomeFragment : Fragment() {
             val decorator = TopSpacingItemDecoration(8)
             addItemDecoration(decorator)
         }
-
-        filmsAdapter.addItems(filmsDataBase)
     }
 }
