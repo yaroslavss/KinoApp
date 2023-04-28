@@ -70,14 +70,14 @@ class HomeFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentHomeBinding.inflate(inflater, container, false)
-        binding2 = MergeHomeScreenContentBinding.inflate(inflater, container, false)
+        binding2 = MergeHomeScreenContentBinding.inflate(layoutInflater, binding.homeFragmentRoot, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val scene = Scene.getSceneForLayout(binding.homeFragmentRoot, R.layout.merge_home_screen_content, requireContext())
+        val scene = Scene(binding.homeFragmentRoot, binding2.root)
 
         // search view animation
         val searchSlide = Slide(Gravity.TOP).addTarget(R.id.search_view)
