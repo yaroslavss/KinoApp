@@ -58,27 +58,31 @@ class MainActivity : AppCompatActivity() {
             when (it.itemId) {
                 R.id.home -> {
                     val tag = "home"
+                    val fragment = checkFragmentExistence(tag)
+                    // if fragment not found (null) create new one
+                    changeFragment( fragment?: HomeFragment(), tag)
                     true
                 }
                 R.id.favorites -> {
-                    supportFragmentManager
-                        .beginTransaction()
-                        .replace(R.id.fragment_placeholder, FavoritesFragment())
-                        .addToBackStack(null)
-                        .commit()
+                    val tag = "favorites"
+                    val fragment = checkFragmentExistence(tag)
+                    changeFragment( fragment?: FavoritesFragment(), tag)
                     true
                 }
                 R.id.watch_later -> {
-                    Toast.makeText(this, it.title, Toast.LENGTH_SHORT).show()
+                    val tag = "watch_later"
+                    val fragment = checkFragmentExistence(tag)
+                    changeFragment( fragment?: WatchLaterFragment(), tag)
                     true
                 }
                 R.id.selections -> {
-                    Toast.makeText(this, it.title, Toast.LENGTH_SHORT).show()
+                    val tag = "selections"
+                    val fragment = checkFragmentExistence(tag)
+                    changeFragment( fragment?: SelectionsFragment(), tag)
                     true
                 }
                 else -> false
-            }
-        }
+            }        }
     }
 
     // find Fragment by tag
