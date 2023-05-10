@@ -3,6 +3,7 @@ package com.yara.kinoapp
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import com.yara.kinoapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -16,7 +17,7 @@ class MainActivity : AppCompatActivity() {
 
         initNavigation()
 
-        // run fragment
+        // run fragment on start
         supportFragmentManager
             .beginTransaction()
             .add(R.id.fragment_placeholder, HomeFragment())
@@ -55,26 +56,46 @@ class MainActivity : AppCompatActivity() {
     private fun initNavigation() {
         binding.bottomNavigation.setOnItemSelectedListener {
             when (it.itemId) {
+                R.id.home -> {
+                    val tag = "home"
+                    val fragment = checkFragmentExistence(tag)
+                    // if fragment not found (null) create new one
+                    changeFragment( fragment?: HomeFragment(), tag)
+                    true
+                }
                 R.id.favorites -> {
-                    supportFragmentManager
-                        .beginTransaction()
-                        .replace(R.id.fragment_placeholder, FavoritesFragment())
-                        .addToBackStack(null)
-                        .commit()
+                    val tag = "favorites"
+                    val fragment = checkFragmentExistence(tag)
+                    changeFragment( fragment?: FavoritesFragment(), tag)
                     true
                 }
                 R.id.watch_later -> {
-                    Toast.makeText(this, it.title, Toast.LENGTH_SHORT).show()
+                    val tag = "watch_later"
+                    val fragment = checkFragmentExistence(tag)
+                    changeFragment( fragment?: WatchLaterFragment(), tag)
                     true
                 }
                 R.id.selections -> {
-                    Toast.makeText(this, it.title, Toast.LENGTH_SHORT).show()
+                    val tag = "selections"
+                    val fragment = checkFragmentExistence(tag)
+                    changeFragment( fragment?: SelectionsFragment(), tag)
                     true
                 }
                 else -> false
-            }
-        }
+            }        }
     }
+
+    // find Fragment by tag
+    private fun checkFragmentExistence(tag: String): Fragment? = supportFragmentManager.findFragmentByTag(tag)
+
+    private fun changeFragment(fragment: Fragment, tag: String) {
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.fragment_placeholder, fragment, tag)
+            .addToBackStack(null)
+            .commit()
+    }
+
 
     companion object {
         const val TIME_INTERVAL = 2000
