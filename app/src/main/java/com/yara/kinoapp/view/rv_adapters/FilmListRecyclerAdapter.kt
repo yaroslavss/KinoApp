@@ -1,8 +1,11 @@
-package com.yara.kinoapp
+package com.yara.kinoapp.view.rv_adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.yara.kinoapp.R
+import com.yara.kinoapp.domain.Film
+import com.yara.kinoapp.view.rv_viewholders.FilmViewHolder
 
 class FilmListRecyclerAdapter(private val clickListener: OnItemClickListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val items = mutableListOf<Film>()

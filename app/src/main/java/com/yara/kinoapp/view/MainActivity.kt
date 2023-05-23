@@ -1,10 +1,13 @@
-package com.yara.kinoapp
+package com.yara.kinoapp.view
 
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.yara.kinoapp.R
 import com.yara.kinoapp.databinding.ActivityMainBinding
+import com.yara.kinoapp.domain.Film
+import com.yara.kinoapp.view.fragments.*
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding

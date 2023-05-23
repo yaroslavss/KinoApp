@@ -1,9 +1,10 @@
-package com.yara.kinoapp
+package com.yara.kinoapp.view.customviews
 
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
 import android.view.View
+import com.yara.kinoapp.R
 
 class RatingDonutView @JvmOverloads constructor(context: Context, attributeSet: AttributeSet? = null) : View(context, attributeSet) {
     //Овал для рисования сегментов прогресс бара

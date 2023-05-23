@@ -1,4 +1,4 @@
-package com.yara.kinoapp
+package com.yara.kinoapp.view.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,7 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.yara.kinoapp.view.rv_adapters.FilmListRecyclerAdapter
+import com.yara.kinoapp.view.MainActivity
+import com.yara.kinoapp.view.rv_adapters.TopSpacingItemDecoration
 import com.yara.kinoapp.databinding.FragmentFavoritesBinding
+import com.yara.kinoapp.domain.Film
+import com.yara.kinoapp.utils.AnimationHelper
 
 class FavoritesFragment : Fragment() {
     private lateinit var filmsAdapter: FilmListRecyclerAdapter
@@ -28,7 +33,7 @@ class FavoritesFragment : Fragment() {
         AnimationHelper.performFragmentCircularRevealAnimation(binding.favoritesFragmentRoot, requireActivity(), 1)
 
         binding.favoritesRecycler.apply {
-            filmsAdapter = FilmListRecyclerAdapter(object : FilmListRecyclerAdapter.OnItemClickListener{
+            filmsAdapter = FilmListRecyclerAdapter(object : FilmListRecyclerAdapter.OnItemClickListener {
                 override fun click(film: Film) {
                     (requireActivity() as MainActivity).launchDetailsFragment(film)
                 }
