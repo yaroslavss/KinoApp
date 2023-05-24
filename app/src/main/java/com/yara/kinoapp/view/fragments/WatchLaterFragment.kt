@@ -1,4 +1,4 @@
-package com.yara.kinoapp
+package com.yara.kinoapp.view.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.yara.kinoapp.databinding.FragmentWatchLaterBinding
+import com.yara.kinoapp.utils.AnimationHelper
 
 
 class WatchLaterFragment : Fragment() {

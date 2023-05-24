@@ -1,10 +1,11 @@
-package com.yara.kinoapp
+package com.yara.kinoapp.view.rv_viewholders
 
 import android.animation.ObjectAnimator
 import android.view.View
 import android.view.animation.DecelerateInterpolator
 import androidx.recyclerview.widget.RecyclerView
 import com.yara.kinoapp.databinding.FilmItemBinding
+import com.yara.kinoapp.domain.Film
 
 
 class FilmViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

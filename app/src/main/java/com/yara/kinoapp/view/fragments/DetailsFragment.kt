@@ -1,4 +1,4 @@
-package com.yara.kinoapp
+package com.yara.kinoapp.view.fragments
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.yara.kinoapp.R
 import com.yara.kinoapp.databinding.FragmentDetailsBinding
+import com.yara.kinoapp.domain.Film
 
 class DetailsFragment : Fragment() {
     private lateinit var binding: FragmentDetailsBinding

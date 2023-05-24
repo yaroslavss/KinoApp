@@ -1,9 +1,10 @@
-package com.yara.kinoapp
+package com.yara.kinoapp.view.customviews
 
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
 import android.view.View
+import com.yara.kinoapp.R
 
 class RatingDonutView @JvmOverloads constructor(context: Context, attributeSet: AttributeSet? = null) : View(context, attributeSet) {
     //Овал для рисования сегментов прогресс бара
@@ -16,7 +17,7 @@ class RatingDonutView @JvmOverloads constructor(context: Context, attributeSet: 
     private var stroke = 10f
     //Значение прогресса от 0 - 100
     private var progress = 50
-    //Значения размера текста внутри кольца
+    //Значение размера текста внутри кольца
     private var scaleSize = 60f
     //Краски для наших фигур
     private lateinit var strokePaint: Paint
@@ -44,7 +45,7 @@ class RatingDonutView @JvmOverloads constructor(context: Context, attributeSet: 
             style = Paint.Style.STROKE
             //Сюда кладем значение из поля класса, потому как у нас краски будут видоизменяться
             strokeWidth = stroke
-            //Цвет мы тоже будем получать в специальном метода, потому что в зависимости от рейтинга
+            //Цвет мы тоже будем получать в специальном методе, потому что в зависимости от рейтинга
             //мы будем менять цвет нашего кольца
             color = getPaintColor(progress)
             isAntiAlias = true
@@ -105,11 +106,11 @@ class RatingDonutView @JvmOverloads constructor(context: Context, attributeSet: 
     }
 
     fun setProgress(pr: Int) {
-        //Кладем новове значение в нашу поле класса
+        //Кладем новое значение в наше поле класса
         progress = pr
         //Создаем краски с новыми цветами
         initPaint()
-        //вызываем перерисовку View
+        //Вызываем перерисовку View
         invalidate()
     }
 
@@ -122,9 +123,9 @@ class RatingDonutView @JvmOverloads constructor(context: Context, attributeSet: 
         canvas.translate(centerX, centerY)
         //Устанавливаем размеры под наш овал
         oval.set(0f - scale, 0f - scale, scale , scale)
-        //Рисуем задний фон(Желательно его отрисовать один раз в bitmap, так как он статичный)
+        //Рисуем задний фон (желательно его отрисовать один раз в bitmap, так как он статичный)
         canvas.drawCircle(0f, 0f, radius, circlePaint)
-        //Рисуем "арки" из них и будет состоять наше кольцо + у нас тут специальный метод
+        //Рисуем "арки", из них и будет состоять наше кольцо + у нас тут специальный метод
         canvas.drawArc(oval, -90f, convertProgressToDegrees(progress), false, strokePaint)
         //Восстанавливаем канвас
         canvas.restore()
@@ -133,7 +134,7 @@ class RatingDonutView @JvmOverloads constructor(context: Context, attributeSet: 
     private fun drawText(canvas: Canvas) {
         //Форматируем текст, чтобы мы выводили дробное число с одной цифрой после точки
         val message = String.format("%.1f", progress / 10f)
-        //Получаем ширину и высоту текста, чтобы компенсировать их при отрисовке, что бы текст был
+        //Получаем ширину и высоту текста, чтобы компенсировать их при отрисовке, чтобы текст был
         //точно в центре
         val widths = FloatArray(message.length)
         digitPaint.getTextWidths(message, widths)

@@ -1,4 +1,4 @@
-package com.yara.kinoapp
+package com.yara.kinoapp.domain
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

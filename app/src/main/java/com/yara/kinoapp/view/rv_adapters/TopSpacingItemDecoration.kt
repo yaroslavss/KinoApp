@@ -1,4 +1,4 @@
-package com.yara.kinoapp
+package com.yara.kinoapp.view.rv_adapters
 
 import android.content.res.Resources
 import android.graphics.Rect
