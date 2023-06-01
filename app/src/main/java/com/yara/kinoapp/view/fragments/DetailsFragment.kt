@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
 import com.yara.kinoapp.R
 import com.yara.kinoapp.databinding.FragmentDetailsBinding
 import com.yara.kinoapp.domain.Film
@@ -60,7 +61,11 @@ class DetailsFragment : Fragment() {
         film = arguments?.get("film") as Film
 
         binding.detailsToolbar.title = film.title
-        binding.detailsPoster.setImageResource(film.poster)
+        // set poster
+        Glide.with(this)
+            .load(film.poster)
+            .centerCrop()
+            .into(binding.detailsPoster)
         binding.detailsDescription.text = film.description
 
         binding.detailsFabFavorites.setImageResource(
