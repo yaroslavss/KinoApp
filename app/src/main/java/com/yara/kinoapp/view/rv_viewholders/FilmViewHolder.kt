@@ -4,9 +4,9 @@ import android.animation.ObjectAnimator
 import android.view.View
 import android.view.animation.DecelerateInterpolator
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.yara.kinoapp.databinding.FilmItemBinding
 import com.yara.kinoapp.domain.Film
-
 
 class FilmViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val filmItemBinding = FilmItemBinding.bind(itemView)
@@ -18,7 +18,13 @@ class FilmViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     fun bind(film: Film) {
         title.text = film.title
-        poster.setImageResource(film.poster)
+
+        // load poster
+        Glide.with(itemView)
+            .load(film.poster)
+            .centerCrop()
+            .into(poster)
+
         description.text = film.description
         ratingDonut.setProgress((film.rating * 10).toInt())
 
