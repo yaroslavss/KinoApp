@@ -2,13 +2,16 @@ package com.yara.kinoapp.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.yara.kinoapp.App
 import com.yara.kinoapp.domain.Film
 import com.yara.kinoapp.domain.Interactor
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
-class HomeFragmentViewModel : ViewModel() {
+class HomeFragmentViewModel : ViewModel(), KoinComponent {
     val filmsListLiveData: MutableLiveData<List<Film>> = MutableLiveData()
-    private var interactor: Interactor = App.instance.interactor
+
+    // init interactor
+    private val interactor: Interactor by inject()
 
     init {
         interactor.getFilmsFromApi(1, object : ApiCallback {
