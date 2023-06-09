@@ -1,21 +1,21 @@
 package com.yara.kinoapp
 
 import android.app.Application
-import com.yara.kinoapp.di.DI
-import org.koin.android.ext.koin.androidContext
-import org.koin.android.ext.koin.androidLogger
-import org.koin.core.context.startKoin
+import com.yara.kinoapp.di.AppComponent
+import com.yara.kinoapp.di.DaggerAppComponent
 
 class App : Application() {
+    lateinit var dagger: AppComponent
+
     override fun onCreate() {
         super.onCreate()
-        startKoin {
-            // add context
-            androidContext(this@App)
-            // add logging
-            androidLogger()
-            // load modules
-            modules(listOf(DI.mainModule))
-        }
+        instance = this
+        // create component
+        dagger = DaggerAppComponent.create()
+    }
+
+    companion object {
+        lateinit var instance: App
+            private set
     }
 }
