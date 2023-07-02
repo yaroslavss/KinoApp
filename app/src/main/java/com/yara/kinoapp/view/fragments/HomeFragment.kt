@@ -68,9 +68,21 @@ class HomeFragment : Fragment() {
             }
         })
 
+        initPullToRefresh()
         initRecycler()
         viewModel.filmsListLiveData.observe(viewLifecycleOwner) {
             filmsDataBase = it
+            filmsAdapter.addItems(it)
+        }
+    }
+
+    private fun initPullToRefresh() {
+        // listener for swipe to refresh
+        binding.pullToRefresh.setOnRefreshListener {
+            filmsAdapter.items.clear()
+            viewModel.getFilms()
+            // remove spinning animation
+            binding.pullToRefresh.isRefreshing = false
         }
     }
 
