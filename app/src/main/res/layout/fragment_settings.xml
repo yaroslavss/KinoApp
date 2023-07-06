@@ -7,10 +7,16 @@
     android:background="@drawable/background_settings"
     tools:context=".view.fragments.SettingsFragment">
 
-    <EditText
-        android:id="@+id/search_string"
-        android:layout_height="wrap_content"
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
-        android:text=""
-        android:layout_gravity="center" />
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        style="@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/search_string"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/search_string_edit_field_title"/>
+    </com.google.android.material.textfield.TextInputLayout>
 </FrameLayout>
