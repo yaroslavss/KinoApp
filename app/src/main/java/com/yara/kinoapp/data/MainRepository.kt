@@ -2,6 +2,7 @@ package com.yara.kinoapp.data
 
 import android.content.ContentValues
 import android.database.Cursor
+import android.database.sqlite.SQLiteDatabase
 import com.yara.kinoapp.data.db.DatabaseHelper
 import com.yara.kinoapp.domain.Film
 
@@ -20,7 +21,7 @@ class MainRepository(databaseHelper: DatabaseHelper) {
             put(DatabaseHelper.COLUMN_RATING, film.rating)
         }
 
-        sqlDb.insert(DatabaseHelper.TABLE_NAME, null, cv)
+        sqlDb.insertWithOnConflict(DatabaseHelper.TABLE_NAME, null, cv, SQLiteDatabase.CONFLICT_IGNORE)
     }
 
     // select all data from DB

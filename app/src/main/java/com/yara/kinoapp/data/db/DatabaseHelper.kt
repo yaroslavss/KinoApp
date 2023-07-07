@@ -10,7 +10,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         db?.execSQL(
             "CREATE TABLE $TABLE_NAME (" +
                     "$COLUMN_ID INTEGER PRIMARY KEY AUTOINCREMENT," +
-                    "$COLUMN_TITLE TEXT," +
+                    "$COLUMN_TITLE TEXT UNIQUE," +
                     "$COLUMN_POSTER TEXT," +
                     "$COLUMN_DESCRIPTION TEXT," +
                     "$COLUMN_RATING REAL);"
