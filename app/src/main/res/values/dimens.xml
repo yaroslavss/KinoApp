@@ -16,4 +16,5 @@
     <dimen name="film_item_image_width">150dp</dimen>
     <dimen name="film_item_title_padding">8dp</dimen>
     <dimen name="film_item_desc_padding">8dp</dimen>
+    <dimen name="settings_screen_margin">16dp</dimen>
 </resources>
