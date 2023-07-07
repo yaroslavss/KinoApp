@@ -43,4 +43,9 @@ class MainRepository(databaseHelper: DatabaseHelper) {
 
         return result
     }
+
+    // delete all data from DB
+    fun clearDB() {
+        sqlDb.delete(DatabaseHelper.TABLE_NAME, null, null)
+    }
 }

@@ -26,4 +26,8 @@ class SettingsFragmentViewModel : ViewModel() {
         interactor.saveDefaultSearchToPreferences(searchStr)
         getSearchString()
     }
+
+    fun clearDB() {
+        interactor.clearDB()
+    }
 }

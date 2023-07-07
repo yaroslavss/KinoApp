@@ -34,4 +34,8 @@ class Interactor(private val repo: MainRepository, private val retrofitService: 
     fun getDefaultSearchFromPreferences() = preferences.getDefaultSearch()
 
     fun getFilmsFromDB(): List<Film> = repo.getAllFromDB()
+
+    fun clearDB() {
+        repo.clearDB()
+    }
 }
