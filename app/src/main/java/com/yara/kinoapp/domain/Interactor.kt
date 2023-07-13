@@ -14,7 +14,11 @@ class Interactor(private val repo: MainRepository, private val retrofitService: 
         retrofitService.getFilms(getDefaultSearchFromPreferences(), API.KEY, page).enqueue(object :
             Callback<OmdbResults> {
             override fun onResponse(call: Call<OmdbResults>, response: Response<OmdbResults>) {
-                callback.onSuccess(Converter.convertApiListToDTOList(response.body()?.omdbFilms))
+                val list = Converter.convertApiListToDTOList(response.body()?.omdbFilms)
+                list.forEach {
+                    repo.putToDb(film = it)
+                }
+                callback.onSuccess(list)
             }
 
             override fun onFailure(call: Call<OmdbResults>, t: Throwable) {
@@ -28,4 +32,10 @@ class Interactor(private val repo: MainRepository, private val retrofitService: 
     }
 
     fun getDefaultSearchFromPreferences() = preferences.getDefaultSearch()
+
+    fun getFilmsFromDB(): List<Film> = repo.getAllFromDB()
+
+    fun clearDB() {
+        repo.clearDB()
+    }
 }

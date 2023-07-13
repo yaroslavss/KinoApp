@@ -7,4 +7,5 @@
     <string name="menu_selections_title">Коллекция</string>
     <string name="menu_home_title_text">Главная</string>
     <string name="search_string_edit_field_title">Строка поиска</string>
+    <string name="clear_db_button_text">Очистить БД</string>
 </resources>

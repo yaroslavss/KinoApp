@@ -32,6 +32,10 @@ class SettingsFragment : Fragment() {
         viewModel.searchStringLiveData.observe(viewLifecycleOwner) {
             binding.searchString.setText(it)
         }
+
+        binding.clearDbButton.setOnClickListener {
+            viewModel.clearDB()
+        }
     }
 
     override fun onPause() {
