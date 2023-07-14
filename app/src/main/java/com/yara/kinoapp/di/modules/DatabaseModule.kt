@@ -1,8 +1,10 @@
 package com.yara.kinoapp.di.modules
 
 import android.content.Context
+import androidx.room.Room
 import com.yara.kinoapp.data.MainRepository
-import com.yara.kinoapp.data.db.DatabaseHelper
+import com.yara.kinoapp.data.dao.FilmDao
+import com.yara.kinoapp.data.db.AppDatabase
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -11,9 +13,14 @@ import javax.inject.Singleton
 class DatabaseModule {
     @Singleton
     @Provides
-    fun provideDatabaseHelper(context: Context) = DatabaseHelper(context)
+    fun provideFilmDao(context: Context) =
+        Room.databaseBuilder(
+            context,
+            AppDatabase::class.java,
+            "film_db"
+        ).build().filmDao()
 
     @Singleton
     @Provides
-    fun provideRepository(databaseHelper: DatabaseHelper) = MainRepository(databaseHelper)
+    fun provideRepository(filmDao: FilmDao) = MainRepository(filmDao)
 }

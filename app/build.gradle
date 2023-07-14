@@ -53,6 +53,10 @@ dependencies {
     // dagger
     implementation 'com.google.dagger:dagger:2.46'
     kapt 'com.google.dagger:dagger-compiler:2.46'
+    // room
+    def room_version = "2.5.2"
+    implementation "androidx.room:room-runtime:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
