@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="progress_bar_width">100dp</dimen>
+    <dimen name="progress_bar_height">100dp</dimen>
     <dimen name="search_view_radius">15dp</dimen>
     <dimen name="search_view_padding">8dp</dimen>
     <dimen name="recycler_view_padding">8dp</dimen>
