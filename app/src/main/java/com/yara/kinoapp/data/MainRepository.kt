@@ -1,5 +1,6 @@
 package com.yara.kinoapp.data
 
+import androidx.lifecycle.LiveData
 import com.yara.kinoapp.data.dao.FilmDao
 import com.yara.kinoapp.data.entity.FilmApi
 import java.util.concurrent.Executors
@@ -14,7 +15,7 @@ class MainRepository(private val filmDao: FilmDao) {
     }
 
     // select all data from DB
-    fun getAllFromDB(): List<FilmApi> {
+    fun getAllFromDB(): LiveData<List<FilmApi>> {
         return filmDao.getCachedFilms()
     }
 
