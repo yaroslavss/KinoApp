@@ -1,11 +1,20 @@
 <resources>
     <string name="app_name">KinoApp</string>
     <string name="page_title">Search it!</string>
+
+    <!-- bottom menu -->
     <string name="menu_settings_title">Настройки</string>
     <string name="menu_favorites_title">Избранное</string>
     <string name="menu_watch_later_title">Смотреть позже</string>
     <string name="menu_selections_title">Коллекция</string>
     <string name="menu_home_title_text">Главная</string>
+
+    <!-- for settings fragment -->
     <string name="search_string_edit_field_title">Строка поиска</string>
     <string name="clear_db_button_text">Очистить БД</string>
+
+    <!-- for details fragment -->
+    <string name="permission_storage">Нет разрешения. Предоставьте разрешение.</string>
+    <string name="downloaded_to_gallery">Сохранено в галерею</string>
+    <string name="open">В галерею</string>
 </resources>
