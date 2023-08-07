@@ -1,28 +1,22 @@
 package com.yara.kinoapp.data
 
-import androidx.lifecycle.LiveData
 import com.yara.kinoapp.data.dao.FilmDao
 import com.yara.kinoapp.data.entity.FilmApi
-import java.util.concurrent.Executors
+import kotlinx.coroutines.flow.Flow
 
 class MainRepository(private val filmDao: FilmDao) {
     // insert data into DB
     fun putToDb(films: List<FilmApi>) {
-        // run DB queries in new thread
-        Executors.newSingleThreadExecutor().execute {
-            filmDao.insertAll(films)
-        }
+        filmDao.insertAll(films)
     }
 
     // select all data from DB
-    fun getAllFromDB(): LiveData<List<FilmApi>> {
+    fun getAllFromDB(): Flow<List<FilmApi>> {
         return filmDao.getCachedFilms()
     }
 
     // delete all data from DB
     fun clearDB() {
-        Executors.newSingleThreadExecutor().execute {
-            filmDao.deleteAll()
-        }
+        filmDao.deleteAll()
     }
 }
