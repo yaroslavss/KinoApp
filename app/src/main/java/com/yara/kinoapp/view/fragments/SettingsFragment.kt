@@ -9,12 +9,17 @@ import androidx.lifecycle.ViewModelProvider
 import com.yara.kinoapp.databinding.FragmentSettingsBinding
 import com.yara.kinoapp.utils.AnimationHelper
 import com.yara.kinoapp.viewmodel.SettingsFragmentViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.launch
 
 class SettingsFragment : Fragment() {
     private lateinit var binding: FragmentSettingsBinding
     private val viewModel by lazy {
         ViewModelProvider.NewInstanceFactory().create(SettingsFragmentViewModel::class.java)
     }
+    private val scope = CoroutineScope(Dispatchers.IO)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,15 +32,27 @@ class SettingsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        AnimationHelper.performFragmentCircularRevealAnimation(binding.settingsFragmentRoot, requireActivity(), 5)
+        AnimationHelper.performFragmentCircularRevealAnimation(
+            binding.settingsFragmentRoot,
+            requireActivity(),
+            5
+        )
 
         viewModel.searchStringLiveData.observe(viewLifecycleOwner) {
             binding.searchString.setText(it)
         }
 
+        // proceed clicking on 'Clear DB' button
         binding.clearDbButton.setOnClickListener {
-            viewModel.clearDB()
+            scope.launch {
+                viewModel.clearDB()
+            }
         }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        scope.cancel()
     }
 
     override fun onPause() {
