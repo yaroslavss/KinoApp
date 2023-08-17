@@ -6,43 +6,42 @@ import com.yara.kinoapp.data.OmdbApi
 import com.yara.kinoapp.data.entity.OmdbResults
 import com.yara.kinoapp.data.preference.PreferenceProvider
 import com.yara.kinoapp.utils.Converter
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.launch
+import io.reactivex.rxjava3.core.Completable
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.schedulers.Schedulers
+import io.reactivex.rxjava3.subjects.BehaviorSubject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import kotlin.random.Random
 
-class Interactor(private val repo: MainRepository, private val retrofitService: OmdbApi, private val preferences: PreferenceProvider) {
-    val scope: CoroutineScope = CoroutineScope(Dispatchers.IO)
-    var progressBarState = Channel<Boolean>(Channel.CONFLATED)
+class Interactor(
+    private val repo: MainRepository,
+    private val retrofitService: OmdbApi,
+    private val preferences: PreferenceProvider
+) {
+    var progressBarState: BehaviorSubject<Boolean> = BehaviorSubject.create()
 
     fun getFilmsFromApi(page: Int) {
         // set ProgressBar on
-        scope.launch {
-            progressBarState.send(true)
-        }
+        progressBarState.onNext(true)
 
         retrofitService.getFilms(getDefaultSearchFromPreferences(), API.KEY, page).enqueue(object :
             Callback<OmdbResults> {
             override fun onResponse(call: Call<OmdbResults>, response: Response<OmdbResults>) {
                 val listToSave = Converter.convertAPIListToDBList(response.body()?.omdbFilms)
-                // on success save fimls into DB and set ProgressBar off
-                scope.launch {
+                // on success save films into DB and set ProgressBar off
+                Completable.fromSingle<List<Film>> {
                     repo.putToDb(listToSave)
-                    progressBarState.send(false)
                 }
+                    .subscribeOn(Schedulers.io())
+                    .subscribe()
+                progressBarState.onNext(false)
             }
 
             override fun onFailure(call: Call<OmdbResults>, t: Throwable) {
                 // set ProgressBar off
-                scope.launch {
-                    progressBarState.send(false)
-                }
+                progressBarState.onNext(false)
             }
         })
     }
@@ -55,7 +54,7 @@ class Interactor(private val repo: MainRepository, private val retrofitService: 
     // get settings from SharedPreferences
     fun getDefaultSearchFromPreferences() = preferences.getDefaultSearch()
 
-    fun getFilmsFromDB(): Flow<List<Film>> = repo.getAllFromDB().map { data ->
+    fun getFilmsFromDB(): Observable<List<Film>> = repo.getAllFromDB().map { data ->
         // convert DB (API) data to DTO data with map operator
         data.map {
             Film(
