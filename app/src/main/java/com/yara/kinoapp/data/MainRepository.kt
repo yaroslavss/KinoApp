@@ -2,7 +2,7 @@ package com.yara.kinoapp.data
 
 import com.yara.kinoapp.data.dao.FilmDao
 import com.yara.kinoapp.data.entity.FilmApi
-import kotlinx.coroutines.flow.Flow
+import io.reactivex.rxjava3.core.Observable
 
 class MainRepository(private val filmDao: FilmDao) {
     // insert data into DB
@@ -11,7 +11,7 @@ class MainRepository(private val filmDao: FilmDao) {
     }
 
     // select all data from DB
-    fun getAllFromDB(): Flow<List<FilmApi>> {
+    fun getAllFromDB(): Observable<List<FilmApi>> {
         return filmDao.getCachedFilms()
     }
 

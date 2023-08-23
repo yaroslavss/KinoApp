@@ -4,13 +4,13 @@ import androidx.lifecycle.ViewModel
 import com.yara.kinoapp.App
 import com.yara.kinoapp.domain.Film
 import com.yara.kinoapp.domain.Interactor
-import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.Flow
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.subjects.BehaviorSubject
 import javax.inject.Inject
 
 class HomeFragmentViewModel : ViewModel() {
-    val filmsListData: Flow<List<Film>>
-    val showProgressBar: Channel<Boolean>
+    val filmsListData: Observable<List<Film>>
+    val showProgressBar: BehaviorSubject<Boolean>
 
     // init interactor
     @Inject
