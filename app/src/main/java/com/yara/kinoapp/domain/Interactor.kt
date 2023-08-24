@@ -46,6 +46,12 @@ class Interactor(
         })
     }
 
+    fun getSearchResultFromApi(search: String): Observable<List<Film>> =
+        retrofitService.getFilmsFromSearch(search, API.KEY, 1)
+            .map {
+                Converter.convertAPIListToDTOList(it.omdbFilms)
+            }
+
     // save settings into SharedPreferences
     fun saveDefaultSearchToPreferences(search: String) {
         preferences.saveDefaultSearch(search)
