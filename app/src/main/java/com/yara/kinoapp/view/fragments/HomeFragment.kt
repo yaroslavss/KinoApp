@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -19,8 +20,11 @@ import com.yara.kinoapp.view.rv_adapters.FilmListRecyclerAdapter
 import com.yara.kinoapp.view.rv_adapters.TopSpacingItemDecoration
 import com.yara.kinoapp.viewmodel.HomeFragmentViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.kotlin.subscribeBy
 import io.reactivex.rxjava3.schedulers.Schedulers
 import java.util.Locale
+import java.util.concurrent.TimeUnit
 
 class HomeFragment : Fragment() {
     private val viewModel by lazy {
@@ -30,13 +34,6 @@ class HomeFragment : Fragment() {
 
     private lateinit var filmsAdapter: FilmListRecyclerAdapter
     private lateinit var binding: FragmentHomeBinding
-    private var filmsDataBase = listOf<Film>()
-        // use backing field
-        set(value) {
-            if (field == value) return
-            field = value
-            filmsAdapter.addItems(field)
-        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,30 +54,8 @@ class HomeFragment : Fragment() {
 
         AnimationHelper.performFragmentCircularRevealAnimation(binding.homeFragmentRoot, requireActivity(), 1)
 
-        binding.searchView.setOnClickListener {
-            binding.searchView.isIconified = false
-        }
-
-        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                return true
-            }
-            override fun onQueryTextChange(newText: String): Boolean {
-                if (newText.isEmpty()) {
-                    filmsAdapter.addItems(filmsDataBase)
-                    return true
-                }
-                val result = filmsDataBase.filter {
-                    it.title.lowercase(Locale.getDefault()).contains(newText.lowercase(Locale.getDefault()))
-                }
-
-                filmsAdapter.addItems(result)
-                return true
-            }
-        })
-
+        initSearchView()
         initPullToRefresh()
-
         initRecycler()
 
         viewModel.filmsListData
@@ -88,7 +63,6 @@ class HomeFragment : Fragment() {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { list ->
                 filmsAdapter.addItems(list)
-                filmsDataBase = list
             }
             .addTo(autoDisposable)
 
@@ -109,6 +83,56 @@ class HomeFragment : Fragment() {
             // remove spinning animation
             binding.pullToRefresh.isRefreshing = false
         }
+    }
+
+    private fun initSearchView() {
+        binding.searchView.setOnClickListener {
+            binding.searchView.isIconified = false
+        }
+
+        Observable.create { subscriber ->
+            // set listener on keyboard
+            binding.searchView.setOnQueryTextListener(object :
+                // on entering symbols
+                SearchView.OnQueryTextListener {
+                override fun onQueryTextChange(newText: String): Boolean {
+                    filmsAdapter.items.clear()
+                    subscriber.onNext(newText)
+                    return false
+                }
+
+                // on clicking "Search" button
+                override fun onQueryTextSubmit(query: String): Boolean {
+                    subscriber.onNext(query)
+                    return false
+                }
+            })
+        }
+            .subscribeOn(Schedulers.io())
+            .map {
+                it.lowercase(Locale.getDefault()).trim()
+            }
+            // delay input
+            .debounce(800, TimeUnit.MILLISECONDS)
+            .filter {
+                // return default films list if search string is empty
+                viewModel.getFilms()
+                it.isNotBlank()
+            }
+            .flatMap {
+                viewModel.getSearchResult(it)
+            }
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeBy(
+                onError = {
+                    Toast.makeText(requireContext(), "Error while searching films", Toast.LENGTH_SHORT).show()
+                },
+                onNext = {
+                    filmsAdapter.addItems(it)
+                }
+            )
+            .addTo(autoDisposable)
     }
 
     private fun initRecycler() {
