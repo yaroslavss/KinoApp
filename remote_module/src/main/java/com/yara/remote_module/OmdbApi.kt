@@ -1,8 +1,7 @@
-package com.yara.kinoapp.data
+package com.yara.remote_module
 
-import com.yara.kinoapp.data.entity.OmdbResults
+import com.yara.remote_module.entity.OmdbResults
 import io.reactivex.rxjava3.core.Observable
-import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -12,7 +11,7 @@ interface OmdbApi {
         @Query("s") s: String,
         @Query("apikey") apiKey: String,
         @Query("page") page: Int
-    ): Call<OmdbResults>
+    ): Observable<OmdbResults>
 
     @GET("/")
     fun getFilmsFromSearch(

@@ -1,4 +1,4 @@
-package com.yara.kinoapp.data.entity
+package com.yara.remote_module.entity
 
 import com.google.gson.annotations.SerializedName
 
