@@ -14,3 +14,4 @@ dependencyResolutionManagement {
 }
 rootProject.name = "KinoApp"
 include ':app'
+include ':remote_module'

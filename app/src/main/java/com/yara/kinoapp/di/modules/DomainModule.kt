@@ -2,7 +2,7 @@ package com.yara.kinoapp.di.modules
 
 import android.content.Context
 import com.yara.kinoapp.data.MainRepository
-import com.yara.kinoapp.data.OmdbApi
+import com.yara.remote_module.OmdbApi
 import com.yara.kinoapp.data.preference.PreferenceProvider
 import com.yara.kinoapp.domain.Interactor
 import dagger.Module

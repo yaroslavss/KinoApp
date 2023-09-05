@@ -2,17 +2,13 @@ package com.yara.kinoapp.domain
 
 import com.yara.kinoapp.data.API
 import com.yara.kinoapp.data.MainRepository
-import com.yara.kinoapp.data.OmdbApi
-import com.yara.kinoapp.data.entity.OmdbResults
 import com.yara.kinoapp.data.preference.PreferenceProvider
 import com.yara.kinoapp.utils.Converter
-import io.reactivex.rxjava3.core.Completable
+import com.yara.remote_module.OmdbApi
 import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.kotlin.subscribeBy
 import io.reactivex.rxjava3.schedulers.Schedulers
 import io.reactivex.rxjava3.subjects.BehaviorSubject
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import kotlin.random.Random
 
 class Interactor(
@@ -26,24 +22,22 @@ class Interactor(
         // set ProgressBar on
         progressBarState.onNext(true)
 
-        retrofitService.getFilms(getDefaultSearchFromPreferences(), API.KEY, page).enqueue(object :
-            Callback<OmdbResults> {
-            override fun onResponse(call: Call<OmdbResults>, response: Response<OmdbResults>) {
-                val listToSave = Converter.convertAPIListToDBList(response.body()?.omdbFilms)
-                // on success save films into DB and set ProgressBar off
-                Completable.fromSingle<List<Film>> {
-                    repo.putToDb(listToSave)
+        retrofitService.getFilms(getDefaultSearchFromPreferences(), API.KEY, page)
+            .subscribeOn(Schedulers.io())
+            .map {
+                Converter.convertAPIListToDBList(it.omdbFilms)
+            }
+            .subscribeBy(
+                onError = {
+                    // on error set ProgressBar off
+                    progressBarState.onNext(false)
+                },
+                onNext = {
+                    // on success save films into DB and set ProgressBar off
+                    progressBarState.onNext(false)
+                    repo.putToDb(it)
                 }
-                    .subscribeOn(Schedulers.io())
-                    .subscribe()
-                progressBarState.onNext(false)
-            }
-
-            override fun onFailure(call: Call<OmdbResults>, t: Throwable) {
-                // set ProgressBar off
-                progressBarState.onNext(false)
-            }
-        })
+            )
     }
 
     fun getSearchResultFromApi(search: String): Observable<List<Film>> =

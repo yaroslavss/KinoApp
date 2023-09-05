@@ -1,8 +1,6 @@
-package com.yara.kinoapp.di.modules
+package com.yara.remote_module
 
-import com.yara.kinoapp.BuildConfig
-import com.yara.kinoapp.data.ApiConstants
-import com.yara.kinoapp.data.OmdbApi
+import com.yara.remote_module.entity.ApiConstants
 import dagger.Module
 import dagger.Provides
 import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory

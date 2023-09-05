@@ -1,7 +1,7 @@
 package com.yara.kinoapp.utils
 
 import com.yara.kinoapp.data.entity.FilmApi
-import com.yara.kinoapp.data.entity.OmdbFilm
+import com.yara.remote_module.entity.OmdbFilm
 import com.yara.kinoapp.domain.Film
 import kotlin.random.Random
 
