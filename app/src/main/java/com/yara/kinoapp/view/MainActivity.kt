@@ -1,5 +1,8 @@
 package com.yara.kinoapp.view
 
+import android.content.BroadcastReceiver
+import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -7,10 +10,12 @@ import androidx.fragment.app.Fragment
 import com.yara.kinoapp.R
 import com.yara.kinoapp.databinding.ActivityMainBinding
 import com.yara.kinoapp.domain.Film
+import com.yara.kinoapp.receivers.ConnectionChecker
 import com.yara.kinoapp.view.fragments.*
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    private lateinit var receiver: BroadcastReceiver
     private var backPressed = 0L
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,6 +31,18 @@ class MainActivity : AppCompatActivity() {
             .add(R.id.fragment_placeholder, HomeFragment())
             .addToBackStack(null)
             .commit()
+
+        receiver = ConnectionChecker()
+        val filters = IntentFilter().apply {
+            addAction(Intent.ACTION_POWER_CONNECTED)
+            addAction(Intent.ACTION_BATTERY_LOW)
+        }
+        registerReceiver(receiver, filters)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        unregisterReceiver(receiver)
     }
 
     override fun onBackPressed() {

@@ -2,6 +2,10 @@
     <string name="app_name">KinoApp</string>
     <string name="page_title">Search it!</string>
 
+    <!-- for main activity -->
+    <string name="toast_battery_low">Батарея разряжена</string>
+    <string name="toast_power_connected">Зарядка подключена</string>
+
     <!-- bottom menu -->
     <string name="menu_settings_title">Настройки</string>
     <string name="menu_favorites_title">Избранное</string>
