@@ -31,7 +31,6 @@
                 android:fitsSystemWindows="true"
                 android:scaleType="centerCrop"
                 android:background="?attr/colorAccent"
-                android:src="@drawable/ic_launcher_foreground"
                 app:layout_collapseMode="parallax" />
 
             <androidx.appcompat.widget.Toolbar
@@ -83,6 +82,20 @@
         app:tint="@android:color/white"
         tools:ignore="SpeakableTextPresentCheck" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/details_fab_watch_later"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/fab_margin"
+        app:borderWidth="0dp"
+        android:translationX="@dimen/fab_watch_later_translation_x"
+        android:backgroundTint="?attr/colorPrimaryDark"
+        app:layout_anchor="@id/app_bar"
+        app:layout_anchorGravity="left|bottom"
+        app:srcCompat="@drawable/ic_outline_watch_later_24"
+        app:tint="@android:color/white"
+        tools:ignore="SpeakableTextPresentCheck" />
+
     <ProgressBar
         android:id="@+id/progress_bar"
         android:visibility="invisible"
@@ -96,6 +109,7 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/nested_scroll_margin_top"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <TextView
