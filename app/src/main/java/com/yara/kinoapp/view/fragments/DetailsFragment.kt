@@ -17,6 +17,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.yara.kinoapp.R
 import com.yara.kinoapp.databinding.FragmentDetailsBinding
 import com.yara.kinoapp.domain.Film
+import com.yara.kinoapp.view.notifications.NotificationHelper
 import com.yara.kinoapp.viewmodel.DetailsFragmentViewModel
 import kotlinx.coroutines.*
 
@@ -96,6 +97,10 @@ class DetailsFragment : Fragment() {
             if (film.isInFavorites) R.drawable.ic_baseline_favorite_24
             else R.drawable.ic_baseline_favorite_border_24
         )
+
+        binding.detailsFabWatchLater.setOnClickListener {
+            NotificationHelper.createNotification(requireContext(), film)
+        }
     }
 
     private fun performAsyncLoadOfPoster() {

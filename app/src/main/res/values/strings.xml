@@ -21,4 +21,7 @@
     <string name="permission_storage">Нет разрешения. Предоставьте разрешение.</string>
     <string name="downloaded_to_gallery">Сохранено в галерею</string>
     <string name="open">В галерею</string>
+
+    <!-- for notifications -->
+    <string name="notification_title">Не забудьте посмотреть!</string>
 </resources>
