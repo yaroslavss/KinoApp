@@ -5,6 +5,7 @@
     <!-- for main activity -->
     <string name="toast_battery_low">Батарея разряжена</string>
     <string name="toast_power_connected">Зарядка подключена</string>
+    <string name="toast_pro_version">Доступно в Pro версии</string>
 
     <!-- bottom menu -->
     <string name="menu_settings_title">Настройки</string>
