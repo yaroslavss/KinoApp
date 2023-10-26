@@ -108,7 +108,8 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 else -> false
-            }        }
+            }
+        }
     }
 
     // find Fragment by tag
