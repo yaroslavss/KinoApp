@@ -2,6 +2,10 @@
     <string name="app_name">KinoApp</string>
     <string name="page_title">Search it!</string>
 
+    <!-- for merge_promo.xml -->
+    <string name="text_view_film">Посмотрите фильм:</string>
+    <string name="btn_watch_button">Смотреть</string>
+
     <!-- for main activity -->
     <string name="toast_battery_low">Батарея разряжена</string>
     <string name="toast_power_connected">Зарядка подключена</string>
