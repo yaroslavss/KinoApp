@@ -3,6 +3,7 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'org.jetbrains.kotlin.plugin.parcelize'
     id 'org.jetbrains.kotlin.kapt'
+    id 'com.google.gms.google-services'
 }
 
 apply from: "$project.rootDir/versions.gradle"
@@ -89,6 +90,8 @@ dependencies {
     implementation 'io.reactivex.rxjava3:rxandroid:3.0.2'
     implementation 'io.reactivex.rxjava3:rxjava:3.1.6'
     implementation 'io.reactivex.rxjava3:rxkotlin:3.0.1'
+    // firebase
+    implementation 'com.google.firebase:firebase-config:21.5.0'
 
     //Remote module
     implementation project(":remote_module")

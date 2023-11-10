@@ -4,9 +4,13 @@ import android.content.BroadcastReceiver
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig
+import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
+import com.yara.kinoapp.App
 import com.yara.kinoapp.R
 import com.yara.kinoapp.databinding.ActivityMainBinding
 import com.yara.kinoapp.domain.Film
@@ -38,6 +42,48 @@ class MainActivity : AppCompatActivity() {
             addAction(Intent.ACTION_BATTERY_LOW)
         }
         registerReceiver(receiver, filters)
+
+        if (!App.instance.isPromoShown) {
+            // get Remote Config
+            val firebaseRemoteConfig = FirebaseRemoteConfig.getInstance()
+            // settings
+            val configSettings = FirebaseRemoteConfigSettings.Builder()
+                .setMinimumFetchIntervalInSeconds(0)
+                .build()
+            firebaseRemoteConfig.setConfigSettingsAsync(configSettings)
+            // fetch data
+            firebaseRemoteConfig.fetch()
+                .addOnCompleteListener {
+                    // success
+                    if (it.isSuccessful) {
+                        // activate last config
+                        firebaseRemoteConfig.activate()
+                        // get link
+                        val filmLink = firebaseRemoteConfig.getString("film_link")
+                        // if not blank
+                        if (filmLink.isNotBlank()) {
+                            // set isPromoShown to true
+                            App.instance.isPromoShown = true
+                            // include promo view
+                            binding.promoViewGroup.apply {
+                                // set visible
+                                visibility = View.VISIBLE
+                                // animate
+                                animate()
+                                    .setDuration(1500)
+                                    .alpha(1f)
+                                    .start()
+                                // load poster
+                                setLinkForPoster(filmLink)
+                                // close promo button
+                                watchButton.setOnClickListener {
+                                    visibility = View.GONE
+                                }
+                            }
+                        }
+                    }
+                }
+        }
     }
 
     override fun onDestroy() {
